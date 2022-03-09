@@ -26,7 +26,7 @@
 #define _XTAL_FREQ 8000000
 #define DISABLE_PWM_Service()               (CCP1CON = 0x0)
 #define ENABLE_DIGITAL_IO_Pins()            (ANSEL = 0X0)
-#define LED_Toggle()             do { GPIObits.GP5 = ~GPIObits.GP5; } while(0)
+#define LED_Toggle()             	    do { GPIObits.GP5 = ~GPIObits.GP5; } while(0)
 #define TMR1_CLEAR_FLAG_INT()               (PIR1bits.TMR1IF = 0x0)
 #define ENABLE_TMR1_INT()                   (PIE1bits.TMR1IE = 0x1)
 #define TMR1_ON()                           (T1CONbits.TMR1ON = 0x1)
@@ -34,7 +34,7 @@
 #define FOSC4_TMR1_CLOCK()                  (CMCON1bits.T1ACS = 0x0)
 #define CLEAR_TMR1H()                       (TMR1H = 0x0)
 #define CLEAR_TMR1L()                       (TMR1L = 0x0)
-#define ALL_GPIO_AS_OUTPUTS()                 (TRISA = 0x8)
+#define ALL_GPIO_AS_OUTPUTS()               (TRISA = 0x8)
 
 void settmr1hl(){
     TMR1H = 0x3C;
@@ -70,22 +70,22 @@ void SYSTEM_Initialize(){
     GPIObits.GP5 = 0x0;
 
     OPTION_REG   = 0x80;  /* 10000000,
-                          * GPIO pull-ups disable0,
-                          * INTEDG on rising     0, 
-                          * TOSC FOSC/4 TOSE     0, 
-                          * PSA                  0, 
-                          * PS                   000 1:2 */
-    WPU = 0x0;           /* Disable weak pull ups  */
-    IOC = 0x0;           /* Interrupt on change disabled */ 
-    INTCON = 0xC0;       /* 11000000
-                          * GIE  1 Global Interrupt Enable bit
-                          * PEIE 1 Enables all unmasked interrupts
-                          * TOIE 0 Timer0 Overflow Interrupt Enable bit
-                          * INTE 0 GP2/INT External Interrupt Enable bit
-                          * GPIE 0 GPIO Change Interrupt Enable bit, IOC must EN
-                          * TOIF 0 Timer0 Overflow Interrupt Flag bit(2)
-                          * INTF 0 GP2/INT External Interrupt Flag bit
-                          * GPIF 0 GPIO Change Interrupt Flag bit */
+                           * GPIO pull-ups disable0,
+                           * INTEDG on rising     0, 
+                           * TOSC FOSC/4 TOSE     0, 
+                           * PSA                  0, 
+                           * PS                   000 1:2 */
+    WPU = 0x0;            /* Disable weak pull ups  */
+    IOC = 0x0;            /* Interrupt on change disabled */ 
+    INTCON = 0xC0;        /* 11000000
+                           * GIE  1 Global Interrupt Enable bit
+                           * PEIE 1 Enables all unmasked interrupts
+                           * TOIE 0 Timer0 Overflow Interrupt Enable bit
+                           * INTE 0 GP2/INT External Interrupt Enable bit
+                           * GPIE 0 GPIO Change Interrupt Enable bit, IOC must EN
+                           * TOIF 0 Timer0 Overflow Interrupt Flag bit(2)
+                           * INTF 0 GP2/INT External Interrupt Flag bit
+                           * GPIF 0 GPIO Change Interrupt Flag bit */
     DISABLE_PWM_Service();
     TMR1_CLEAR_FLAG_INT();/* Make sure INT FLAG is cleared */
     TMR1H = 0x3C;         /* Set 15535 in the HL TMR1 for 25mSec interrupt */
