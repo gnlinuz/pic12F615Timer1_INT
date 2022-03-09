@@ -1,0 +1,28 @@
+Enchanced Timer1
+----------------
+The Timer1 module is a 16-bit incrementing counter which is 
+accessed through the TMR1H:TMR1L register pair. Writes to 
+TMR1H or TMR1L directly update the counter.
+When used with an internal clock source, the module is a timer. 
+The internal Timer 1 Clock Source is Instruction Clock (FOSC\4)
+is been used. The TMR1CS bit of the T1CON register is used to select
+the clock source. When TMR1CS = 0, the clock source is FOSC/4.
+Timer1 was used to create an interrupt every 25 mSeconds.
+Formulas to calculate using internal clock source 8Mhz: 
+ -  Timer 1 Clock Source is Instruction Clock (FOSC\4)
+    with prescaler 1:1 
+ -  Sys_Clock = FOSC/4 = 8Mhz/4 = 2*10^6 
+ -  1/Sys_Clock = 500ns or 5*10^-7 
+ -  For 20hz square wave, 1/20 = 0.05Sec or 50mSec period 
+ -  for 50% duty cycle, need a pulse every 25mSec
+ -  TMR1H_TMR1L = 0.025 * 5*10^-7 = 50000  
+ -  TMR1 rolls over on 0xFFFF - 65535 so, 65535 - 50000 = 15535
+ -  TMR1H_TMR1L = 15535 or 00111100 10101111 the first nible goes to
+ -  TMR1H and the second one to TMR1L to achieve a timer1 interrupt
+   every 25mSec
+This will create a very low frequency (20hz) of a square wave with
+50 mSec period and width 25mSec (50% duty cycle).
+Pwm generator for pic12F615 can not create frequencies lower that 
+500hz, but with the above trick using timer1 interrupt we can achieve
+not the "ideal" but some simple low frequencies for testing purposes.
+enjoy!    
