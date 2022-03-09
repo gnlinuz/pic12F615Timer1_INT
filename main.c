@@ -55,7 +55,7 @@ void SYSTEM_Initialize(){
        For 20hz square wave, 1/20 = 0.05Sec or 50mSec period 
        for 50% duty cycle, need a pulse every 25mSec
        TMR1 is a 16bit wide timer, the TMR1H_TMR1L is:
-       TMR1H_TMR1L = 0.025 * 5*10^-7 = 50000  
+       TMR1H_TMR1L = 0.025 / 5*10^-7 = 50000  
        TMR1 rolls over on 0xFFFF - 65535 so, 65535 - 50000 = 15535
        TMR1H_TMR1L = 15535 or 00111100 10101111 the first nible goes to
        TMR1H and the second one to TMR1L to achieve a timer1 interrupt
